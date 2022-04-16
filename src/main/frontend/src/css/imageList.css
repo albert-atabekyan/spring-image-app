@@ -1,0 +1,17 @@
+.imageList {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+img {
+    max-width: 100%;
+}
+
+.image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 25%;
+}
