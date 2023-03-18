@@ -1,2 +1,2 @@
 # spring-image-service
-Сервис для хранения фотографий
+Fullstack service for save images.
