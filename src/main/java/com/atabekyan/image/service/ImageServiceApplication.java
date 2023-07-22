@@ -10,9 +10,9 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 @EnableConfigurationProperties(StorageProperties.class)
-public class ProApplication {
+public class ImageServiceApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(ProApplication.class, args);
+		SpringApplication.run(ImageServiceApplication.class, args);
 	}
 
 	@Bean
