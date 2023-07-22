@@ -1,5 +1,5 @@
-# spring-image-service
-Fullstack service for save images.
+# Image Service
+Сервис для хранения фотографий
 ## Зависимости
 - docker
 - maven
