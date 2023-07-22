@@ -15,7 +15,7 @@ git clone https://github.com/albert-atabekyan/spring-image-service.git
 cd spring-image-service
 docker build -t $image_name --build-arg $JAR_PATH . 
 ```
-$JAR_PATH - это путь до jar файла относительно папки `spring-image-service`, который собирается maven-ом.
+`$JAR_PATH` - это путь до jar файла относительно папки `spring-image-service`, который собирается maven-ом.
 
 Сборка jar-файла:
 ```bash
