@@ -8,11 +8,11 @@
 		<version>2.6.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.project.repo</groupId>
+	<groupId>com.atabekyan.imageservice</groupId>
 	<artifactId>pro</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>pro</name>
-	<description>First Project on Spring Boot</description>
+	<description>Spring Image Service</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
