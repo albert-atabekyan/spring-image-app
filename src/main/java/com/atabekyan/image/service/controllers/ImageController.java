@@ -18,21 +18,25 @@ public class ImageController {
     private final UserService userService;
     private final StorageService storageService;
 
+
+
     @Autowired
     public ImageController(StorageService storageService, UserService userService) {
         this.storageService = storageService;
         this.userService = userService;
     }
 
+
+
     @GetMapping("/add")
     public ResponseEntity<?> getImages() throws IOException {
-        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = getAthenticatedUser();
         return ResponseEntity.ok().body(user.getImages());
     }
 
     @PostMapping("/add")
     public ResponseEntity<?> addImage(@RequestParam("file") MultipartFile file) {
-        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = getAthenticatedUser();
 
         try {
             String filename = storageService.store(file);
