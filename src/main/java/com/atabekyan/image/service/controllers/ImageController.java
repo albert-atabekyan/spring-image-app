@@ -49,7 +49,7 @@ public class ImageController {
     }
 
     @PostMapping("/delete")
-    public ResponseEntity<?> deleteImg(@RequestParam("url") String url) {
+    public ResponseEntity<?> deleteImage(@RequestParam("url") String url) {
         User user = getAthenticatedUser();
 
         boolean flag = userService.deleteImage(user.getId(), url);
