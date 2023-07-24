@@ -32,7 +32,10 @@ public class FileSystemStorageService implements StorageService {
 
     @Override
     public String store(MultipartFile file) {
-        try {
+            if(Objects.isNull(file)) {
+                throw new StorageException("File is not exist");
+            }
+
             if (file.isEmpty()) {
                 throw new StorageException("Failed to store empty file.");
             }
