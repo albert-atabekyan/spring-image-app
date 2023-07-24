@@ -33,7 +33,7 @@ public class LoginController {
     
     @PostMapping
     private ResponseEntity<?> login (@RequestBody AuthenticationRequest authenticationRequest){
-        if(userService.isUserIsNotInDb(authenticationRequest.getUsername()))
+        if(userService.isUserIsNotInDb(authenticationRequest.username()))
             return ResponseEntity.ok(101);
 
         if(isPasswordHashIsNotEqual(authenticationRequest))
@@ -41,8 +41,8 @@ public class LoginController {
 
         UsernamePasswordAuthenticationToken token =
                 new UsernamePasswordAuthenticationToken(
-                        authenticationRequest.getUsername(),
-                        authenticationRequest.getPassword());
+                        authenticationRequest.username(),
+                        authenticationRequest.password());
 
         final Authentication authentication = authenticationManager.authenticate(token);
 
@@ -52,10 +52,10 @@ public class LoginController {
     }
 
     private boolean isPasswordHashIsNotEqual(AuthenticationRequest authenticationRequest) {
-        String passwordFromRequest = authenticationRequest.getPassword();
+        String passwordFromRequest = authenticationRequest.password();
 
         String passwordInDatabase = userService.
-                loadUserByUsername(authenticationRequest.getUsername())
+                loadUserByUsername(authenticationRequest.username())
                 .getPassword();
 
         return !encoder.matches(passwordFromRequest, passwordInDatabase);
