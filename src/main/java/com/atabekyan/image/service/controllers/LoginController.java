@@ -18,6 +18,8 @@ public class LoginController {
     private final UserService userService;
     private final BCryptPasswordEncoder encoder;
 
+
+
     @Autowired
     LoginController(UserService userService,
                     BCryptPasswordEncoder encoder,
@@ -27,20 +29,35 @@ public class LoginController {
         this.authenticationManager = authenticationManager;
     }
 
+    
+    
     @PostMapping
     private ResponseEntity<?> login (@RequestBody AuthenticationRequest authenticationRequest){
-        if(!userService.isUserInDb(authenticationRequest.getUsername()))
+        if(userService.isUserIsNotInDb(authenticationRequest.getUsername()))
             return ResponseEntity.ok(101);
 
-        if(!encoder.matches(authenticationRequest.getPassword(), userService.loadUserByUsername(authenticationRequest.getUsername()).getPassword()))
+        if(isPasswordHashIsNotEqual(authenticationRequest))
             return ResponseEntity.ok(102);
 
-        final Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                authenticationRequest.getUsername(),
-                authenticationRequest.getPassword()));
+        UsernamePasswordAuthenticationToken token =
+                new UsernamePasswordAuthenticationToken(
+                        authenticationRequest.getUsername(),
+                        authenticationRequest.getPassword());
+
+        final Authentication authentication = authenticationManager.authenticate(token);
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         return ResponseEntity.ok(authentication.getAuthorities());
+    }
+
+    private boolean isPasswordHashIsNotEqual(AuthenticationRequest authenticationRequest) {
+        String passwordFromRequest = authenticationRequest.getPassword();
+
+        String passwordInDatabase = userService.
+                loadUserByUsername(authenticationRequest.getUsername())
+                .getPassword();
+
+        return !encoder.matches(passwordFromRequest, passwordInDatabase);
     }
 }
