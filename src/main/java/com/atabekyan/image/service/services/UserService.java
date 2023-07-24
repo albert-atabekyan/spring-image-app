@@ -28,12 +28,10 @@ public class UserService implements UserDetailsService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDao.findByUsername(username);
-
-        if(user == null)
+        if(isUserIsNotInDb(username))
             throw new UsernameNotFoundException("User not found");
 
-        return user;
+        return userDao.findByUsername(username);
     }
 
     public User findUserById(Long userId) {
@@ -43,9 +41,7 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean saveUser(User user) {
-        User userFromDB = userDao.findByUsername(user.getUsername());
-
-        if(userFromDB != null)
+        if(isUserInDb(user.getUsername()))
             return false;
 
         user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
@@ -62,6 +58,10 @@ public class UserService implements UserDetailsService {
         return userFromDB != null;
     }
 
+    public boolean isUserIsNotInDb(String username) {
+        return !isUserInDb(username);
+    }
+
     public boolean deleteUser(Long userId) {
         if(userDao.findById(userId).isPresent()) {
             userDao.deleteById(userId);
@@ -71,19 +71,18 @@ public class UserService implements UserDetailsService {
         return false;
     }
 
-    public boolean addImage(Long userId, String url) {
+    public void addImage(Long userId, String url) {
         Optional<User> userFromDB  = userDao.findById(userId);
 
         if(userFromDB.isPresent()) {
             User user = userFromDB.get();
+
             Image image = new Image(1L, url);
             user.getImages().add(image);
 
             userDao.save(user);
-            return true;
         }
 
-        return false;
     }
 
     public boolean deleteImage(Long userId, String url) {
