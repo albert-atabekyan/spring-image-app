@@ -29,7 +29,7 @@ public class ImageController {
 
 
     @GetMapping("/add")
-    public ResponseEntity<?> getImages() throws IOException {
+    public ResponseEntity<?> getImages() {
         User user = getAthenticatedUser();
         return ResponseEntity.ok().body(user.getImages());
     }
