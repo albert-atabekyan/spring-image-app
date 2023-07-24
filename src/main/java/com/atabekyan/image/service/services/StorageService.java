@@ -17,5 +17,5 @@ public interface StorageService {
 
     void deleteAll();
 
-    void deleteImage(String url);
+    void deleteFile(String url);
 }

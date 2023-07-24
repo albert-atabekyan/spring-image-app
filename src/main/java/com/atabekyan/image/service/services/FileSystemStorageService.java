@@ -92,7 +92,7 @@ public class FileSystemStorageService implements StorageService {
     }
 
     @Override
-    public void deleteImage(String url) {
+    public void deleteFile(String url) {
         Path destinationFile = Path.of(rootLocation + "/" + url).normalize().toAbsolutePath();
         FileSystemUtils.deleteRecursively(destinationFile.toFile());
     }
