@@ -18,14 +18,13 @@ public class LogoutController {
 
     @PostMapping
     public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response){
-        HttpSession session;
-
         SecurityContextHolder.clearContext();
+        HttpSession session = request.getSession(false);
 
-        session= request.getSession(false);
-        if(session != null) {
+        if(isSessionExist(session)) {
             session.invalidate();
         }
+
         for(Cookie cookie : request.getCookies()) {
             cookie.setMaxAge(0);
         }
@@ -33,8 +32,7 @@ public class LogoutController {
         return ResponseEntity.ok("Вы вышли из системы");
     }
 
-    @GetMapping("/success")
-    public ResponseEntity<?> successLogout(){
-        return ResponseEntity.ok("Успешный выход из системы");
+    private static boolean isSessionExist(HttpSession session) {
+        return session != null;
     }
 }
