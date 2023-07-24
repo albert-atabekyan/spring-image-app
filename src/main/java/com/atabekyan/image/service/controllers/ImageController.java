@@ -50,13 +50,18 @@ public class ImageController {
 
     @PostMapping("/delete")
     public ResponseEntity<?> deleteImg(@RequestParam("url") String url) {
-        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = getAthenticatedUser();
 
         boolean flag = userService.deleteImage(user.getId(), url);
         if(flag) {
-            storageService.deleteImage(url);
+            storageService.deleteFile(url);
         }
         else System.out.println("Error");
         return ResponseEntity.ok("Файл удален.");
     }
+
+    private static User getAthenticatedUser() {
+        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
 }
