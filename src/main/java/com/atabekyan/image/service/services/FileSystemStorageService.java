@@ -40,27 +40,30 @@ public class FileSystemStorageService implements StorageService {
                 throw new StorageException("Failed to store empty file.");
             }
 
-            String extension = Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf("."));
-            String filename = UUID.randomUUID() + extension;
-            Path destinationFile = this.rootLocation.resolve(
-                            Paths.get(filename))
-                    .normalize().toAbsolutePath();
+            String extension = getFileExtension(file);
 
-            System.out.println();
-            if (!destinationFile.getParent().equals(this.rootLocation.toAbsolutePath())) {
-                throw new StorageException(
-                        "Cannot store file outside current directory.");
+            String filename = UUID.randomUUID() + extension;
+            Path destinationFile = getAbsolutePath(filename);
+
+            if (isInCurrentFolder(destinationFile)) {
+                throw new StorageException("Cannot store file outside current directory.");
             }
+
             try (InputStream inputStream = file.getInputStream()) {
-                Files.copy(inputStream, destinationFile,
+                Files.copy(
+                        inputStream,
+                        destinationFile,
                         StandardCopyOption.REPLACE_EXISTING);
 
                 return filename;
             }
-        }
-        catch (IOException e) {
-            throw new StorageException("Failed to store file.", e);
-        }
+    }
+
+    private boolean isInCurrentFolder(Path destinationFile) {
+        Path rootAbsoulutePath = getRootLocation().toAbsolutePath();
+
+        Path parent = destinationFile.getParent();
+        return !parent.equals(rootAbsoulutePath);
     }
 
     @Override
@@ -100,5 +103,21 @@ public class FileSystemStorageService implements StorageService {
         catch (IOException e) {
             throw new StorageException("Could not initialize storage", e);
         }
+    }
+
+    private String getFileExtension(MultipartFile file) throws NullPointerException {
+        String filename = file.getOriginalFilename();
+
+        return Objects
+                .requireNonNull(filename)
+                .substring(filename.lastIndexOf("."));
+    }
+
+    private Path getAbsolutePath(String filename) {
+        Path filenamePath = Paths.get(filename);
+
+        return getRootLocation()
+                .resolve(filenamePath)
+                .normalize().toAbsolutePath();
     }
 }
