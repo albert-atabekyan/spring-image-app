@@ -56,6 +56,8 @@ public class FileSystemStorageService implements StorageService {
                         StandardCopyOption.REPLACE_EXISTING);
 
                 return filename;
+            } catch (IOException exception) {
+                throw new StorageException("I/O exception");
             }
     }
 
