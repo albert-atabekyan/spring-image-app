@@ -26,6 +26,10 @@ public class FileSystemStorageService implements StorageService {
         this.rootLocation = Paths.get(properties.getLocation());
     }
 
+    private Path getRootLocation() {
+        return rootLocation;
+    }
+
     @Override
     public String store(MultipartFile file) {
         try {
