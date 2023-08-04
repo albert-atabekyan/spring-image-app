@@ -34,12 +34,6 @@ public class UserService implements UserDetailsService {
         return userDao.findByUsername(username);
     }
 
-    public User findUserById(Long userId) {
-        Optional<User> userFromDB = userDao.findById(userId);
-
-        return userFromDB.orElse(new User());
-    }
-
     public boolean saveUser(User user) {
         if(isUserInDb(user.getUsername()))
             return false;
@@ -85,17 +79,20 @@ public class UserService implements UserDetailsService {
 
     }
 
-    public boolean deleteImage(Long userId, String url) {
-        Optional<User> userFromDB  = userDao.findById(userId);
+    public String deleteImage(Long userId, Long image_id) throws Exception {
+        Optional<User> userFromDB = userDao.findById(userId);
 
-        if(userFromDB.isPresent()) {
+        if (userFromDB.isPresent()) {
             User user = userFromDB.get();
-            user.getImages().removeIf(tempImage -> tempImage.getUrl().equals(url));
-
-            userDao.save(user);
-            return true;
+            for (Image image : user.getImages()) {
+                if(Objects.equals(image.getId(), image_id)) {
+                    user.getImages().remove(image);
+                    userDao.save(user);
+                    return image.getUrl();
+                }
+            }
         }
 
-        return false;
+        throw new Exception("Пользователь не существует");
     }
 }

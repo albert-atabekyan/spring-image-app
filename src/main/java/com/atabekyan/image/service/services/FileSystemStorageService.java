@@ -8,7 +8,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Objects;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 import com.atabekyan.image.service.exception.StorageException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,7 @@ public class FileSystemStorageService implements StorageService {
         this.rootLocation = Paths.get(properties.getLocation());
     }
 
-    private Path getRootLocation() {
+    public Path getRootLocation() {
         return rootLocation;
     }
 
@@ -69,26 +68,8 @@ public class FileSystemStorageService implements StorageService {
     }
 
     @Override
-    public Stream<Path> loadAll() {
-        try(Stream<Path> walk = Files.walk(this.rootLocation, 1)){
-            return walk
-                    .filter(path -> !path.equals(this.rootLocation))
-                    .map(this.rootLocation::relativize);
-        }
-        catch (IOException e) {
-            throw new StorageException("Failed to read stored files", e);
-        }
-
-    }
-
-    @Override
     public Path load(String filename) {
         return rootLocation.resolve(filename);
-    }
-
-    @Override
-    public void deleteAll() {
-        FileSystemUtils.deleteRecursively(rootLocation.toFile());
     }
 
     @Override
