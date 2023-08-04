@@ -1,6 +1,7 @@
 package com.atabekyan.image.service.controllers;
 
 import com.atabekyan.image.service.exception.StorageException;
+import com.atabekyan.image.service.model.Image;
 import com.atabekyan.image.service.model.User;
 import com.atabekyan.image.service.services.StorageService;
 import com.atabekyan.image.service.services.UserService;
@@ -131,7 +132,7 @@ public class ImageController {
         return ResponseEntity.ok("Файл удален.");
     }
 
-    @PostMapping("/add")
+    @PostMapping("add")
     public ResponseEntity<?> addImage(@RequestParam("file") MultipartFile file) {
         User user = getAthenticatedUser();
 
@@ -142,6 +143,10 @@ public class ImageController {
             return ResponseEntity.badRequest().build();
         }
 
+        return fileUploaded();
+    }
+
+    private static ResponseEntity<String> fileUploaded() {
         return ResponseEntity.ok("Файл загружен");
     }
 
