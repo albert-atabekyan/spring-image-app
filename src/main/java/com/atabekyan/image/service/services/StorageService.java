@@ -18,4 +18,6 @@ public interface StorageService {
     void deleteAll();
 
     void deleteFile(String url);
+
+    Path getRootLocation();
 }
