@@ -1,11 +1,6 @@
 package com.atabekyan.image.service.controllers;
 
 import com.atabekyan.image.service.model.User;
-import com.atabekyan.image.service.services.StorageService;
-import com.atabekyan.image.service.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
