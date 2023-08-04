@@ -34,12 +34,6 @@ public class UserService implements UserDetailsService {
         return userDao.findByUsername(username);
     }
 
-    public User findUserById(Long userId) {
-        Optional<User> userFromDB = userDao.findById(userId);
-
-        return userFromDB.orElse(new User());
-    }
-
     public boolean saveUser(User user) {
         if(isUserInDb(user.getUsername()))
             return false;

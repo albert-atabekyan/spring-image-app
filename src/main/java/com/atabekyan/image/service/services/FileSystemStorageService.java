@@ -8,7 +8,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Objects;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 import com.atabekyan.image.service.exception.StorageException;
 import org.springframework.beans.factory.annotation.Autowired;
