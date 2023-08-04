@@ -150,18 +150,6 @@ public class ImageController {
         return ResponseEntity.ok("Файл загружен");
     }
 
-    @PostMapping("/delete")
-    public ResponseEntity<?> deleteImage(@RequestParam("url") String url) {
-        User user = getAthenticatedUser();
-
-        boolean flag = userService.deleteImage(user.getId(), url);
-        if(flag) {
-            storageService.deleteFile(url);
-        }
-        else System.out.println("Error");
-        return ResponseEntity.ok("Файл удален.");
-    }
-
     private static User getAthenticatedUser() {
         return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
