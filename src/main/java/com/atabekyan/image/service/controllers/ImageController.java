@@ -151,7 +151,9 @@ public class ImageController {
     }
 
     private static User getAthenticatedUser() {
-        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return (User) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
     }
-
 }
