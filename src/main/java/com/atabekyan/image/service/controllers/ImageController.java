@@ -150,10 +150,13 @@ public class ImageController {
         return ResponseEntity.ok("Файл загружен");
     }
 
-    private static User getAthenticatedUser() {
-        return (User) SecurityContextHolder
+    private User getAthenticatedUser() {
+         UserDetails userDetails =
+                 (UserDetails) SecurityContextHolder
                 .getContext()
                 .getAuthentication()
                 .getPrincipal();
+
+         return (User) userService.loadUserByUsername(userDetails.getUsername());
     }
 }
