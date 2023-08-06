@@ -2,7 +2,7 @@ import React from "react";
 import AuthenticationService from "../Service/AuthenticationService";
 import ImageService from "../Service/ImageService";
 
-const UploadFile = ({setImages}) => {
+const UploadFile = ({images_id, setImages}) => {
     const dropArea = document.querySelector(".drop-area");
 
     function dragLeaveHandler() {

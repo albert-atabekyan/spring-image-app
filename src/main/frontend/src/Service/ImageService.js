@@ -6,7 +6,7 @@ class ImageService {
 
     postImage(formData) {
         const auth = AuthenticationService.getAuth();
-        return axios.post(API_URL + '/images/add', formData, {
+        return axios.post(API_URL + '/image/add', formData, {
 
                 auth: {
                     username: auth.user,
@@ -16,9 +16,9 @@ class ImageService {
         )
     }
 
-    getImage() {
+    getImages() {
         const auth = AuthenticationService.getAuth();
-        return axios.get(API_URL + '/images/add', {
+        return axios.get(API_URL + '/images', {
             auth: {
                 username: auth.user,
                 password: auth.pass
@@ -26,9 +26,19 @@ class ImageService {
         })
     }
 
-    deleteImage(formData) {
+    getImage(image_id) {
         const auth = AuthenticationService.getAuth();
-        return axios.post(API_URL + '/images/delete', formData,{
+        return axios.get(API_URL + "/image/" + image_id, {
+            auth: {
+                username: auth.user,
+                password: auth.pass
+            }
+        })
+    }
+
+    deleteImage(image_id) {
+        const auth = AuthenticationService.getAuth();
+        return axios.delete(API_URL + "/image/" + image_id, { 
                 auth: {
                     username: auth.user,
                     password: auth.pass

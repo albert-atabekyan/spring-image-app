@@ -9,14 +9,14 @@ const SuccessPage = () => {
     const [images, setImages] = useState([]);
 
     useEffect( () => {
-        ImageService.getImage().then(res => setImages(res.data));
+        ImageService.getImages().then(res => setImages(res.data));
     }, []);
 
     return (
         <>
             <LogoutButton/>
-            <UploadFile images={images} setImages={setImages}/>
-            <ImageList images = {images} setImages={setImages}/>
+            <UploadFile images_id={images} setImages={setImages}/>
+            <ImageList images_id = {images} setImages={setImages}/>
         </>
     );
 };

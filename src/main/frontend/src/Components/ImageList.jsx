@@ -1,31 +1,29 @@
 import React from "react";
 import "../css/imageList.css";
 import ImageService from "../Service/ImageService";
-import {ImageURL} from "../Constants/APIConst";
+import {API_URL} from "../Constants/APIConst";
 
-const ImageList = ({images, setImages}) => {
-    const staticUrl = ImageURL;
+const ImageList = ({images_id, setImages}) => {
+    const staticUrl = API_URL;
 
     async function deleteImage(event) {
         event.preventDefault();
 
-        const [url] = event.target.classList;
-        const formData = new FormData();
-        formData.append("url", url);
+        const [image_id] = event.target.classList;
 
-        await ImageService.deleteImage(formData);
+        await ImageService.deleteImage(image_id);
 
-        const response = await ImageService.getImage();
+        const response = await ImageService.getImages();
         const images = response.data;
         setImages(images);
 
         return undefined;
     }
 
-    const listItems = images.map((image) => {
-        return <div key={image.id} className="image">
-            <img src={staticUrl.concat(image.url)} alt={image.url}/>
-            <button className={image.url} onClick={(event => deleteImage(event))}>Удалить</button>
+    const listItems = images_id.map((image) => {
+        return <div key={image} className="image">
+            <img src={staticUrl + "/image/" + image}></img>
+            <button className={image} onClick={(event => deleteImage(event))}>Удалить</button>
         </div>
         }
     );
