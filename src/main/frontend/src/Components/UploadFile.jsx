@@ -31,7 +31,7 @@ const UploadFile = ({images_id, setImages}) => {
             formData.append("file", file);
 
             await ImageService.postImage(formData);
-            const response = await ImageService.getImage();
+            const response = await ImageService.getImages();
 
             const images = response.data;
             setImages(images);
