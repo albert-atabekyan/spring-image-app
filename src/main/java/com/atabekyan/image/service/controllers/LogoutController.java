@@ -35,4 +35,9 @@ public class LogoutController {
     private static boolean isSessionExist(HttpSession session) {
         return session != null;
     }
+
+    @GetMapping("/success")
+    public ResponseEntity<?> successLogout(){
+        return ResponseEntity.noContent().build();
+    }
 }
