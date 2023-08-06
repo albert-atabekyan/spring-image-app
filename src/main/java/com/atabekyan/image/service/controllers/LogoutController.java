@@ -29,7 +29,7 @@ public class LogoutController {
             cookie.setMaxAge(0);
         }
 
-        return ResponseEntity.ok("Вы вышли из системы");
+        return ResponseEntity.noContent().build();
     }
 
     private static boolean isSessionExist(HttpSession session) {

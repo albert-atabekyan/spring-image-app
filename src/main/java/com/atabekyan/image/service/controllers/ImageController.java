@@ -130,7 +130,7 @@ public class ImageController {
     }
 
     private static ResponseEntity<String> fileDeleted() {
-        return ResponseEntity.ok("Файл удален.");
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("add")
@@ -148,7 +148,7 @@ public class ImageController {
     }
 
     private static ResponseEntity<String> fileUploaded() {
-        return ResponseEntity.ok("Файл загружен");
+        return ResponseEntity.noContent().build();
     }
 
     private User getAthenticatedUser() {
