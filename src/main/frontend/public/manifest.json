@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Image Service",
+  "name": "Service for saving images",
   "icons": [
     {
       "src": "favicon.ico",
