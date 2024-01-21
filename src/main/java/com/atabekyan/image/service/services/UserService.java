@@ -65,13 +65,13 @@ public class UserService implements UserDetailsService {
         return false;
     }
 
-    public void addImage(Long userId, String url) {
+    public void addImage(Long userId, String name) {
         Optional<User> userFromDB  = userDao.findById(userId);
 
         if(userFromDB.isPresent()) {
             User user = userFromDB.get();
 
-            Image image = new Image(1L, url);
+            Image image = new Image(name);
             user.getImages().add(image);
 
             userDao.save(user);
@@ -88,7 +88,7 @@ public class UserService implements UserDetailsService {
                 if(Objects.equals(image.getId(), image_id)) {
                     user.getImages().remove(image);
                     userDao.save(user);
-                    return image.getUrl();
+                    return image.getName();
                 }
             }
         }
