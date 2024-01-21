@@ -1,0 +1,32 @@
+img {
+    max-width: 100%;
+}
+
+.image {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.imageItemTitle {
+    padding: 5%;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+.buttonsContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.buttonsContainer > * {
+    width: 40%;
+    height: 50px;
+    font-size: 11px;
+}
