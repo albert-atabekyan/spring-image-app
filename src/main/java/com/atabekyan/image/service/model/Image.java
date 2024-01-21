@@ -10,27 +10,35 @@ public class Image {
     @Column(name="id")
     private Long id;
 
-    @Column(name = "url")
-    private String url;
+    @Column(name = "name")
+    private String name;
 
-    public Image(String url) {
-        this.url = url;
-    }
+    @Column(name = "title")
+    private String title;
 
     public Image() {
     }
 
-    public Image(Long id, String url) {
-        this.id = id;
-        this.url = url;
+    public Image(String name) {
+        this.name = name;
+        this.title = name;
     }
 
-    public String getUrl() {
-        return url;
+    public Image(String name, String title) {
+        this.name = name;
+        this.title = title;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public String getTitle() {
+        return title;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Long getId() {
@@ -45,7 +53,8 @@ public class Image {
     public String toString() {
         return "Image{" +
                 "id=" + id +
-                ", url='" + url + '\'' +
+                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
                 '}';
     }
 }
