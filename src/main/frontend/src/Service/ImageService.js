@@ -29,6 +29,17 @@ class ImageService {
     getImage(image_id) {
         const auth = AuthenticationService.getAuth();
         return axios.get(API_URL + "/image/" + image_id, {
+            responseType: 'blob',
+            auth: {
+                username: auth.user,
+                password: auth.pass
+            }
+        })
+    }
+
+    getImageInfo(image_id) {
+        const auth = AuthenticationService.getAuth();
+        return axios.get(API_URL + "/image/" + image_id + "/info", {
             auth: {
                 username: auth.user,
                 password: auth.pass
