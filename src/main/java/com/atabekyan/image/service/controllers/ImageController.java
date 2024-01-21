@@ -98,7 +98,7 @@ public class ImageController {
         String absoluteImagePath = storageService
                 .getRootLocation()
                 + File.separator
-                + image.getUrl();
+                + image.getName();
 
         return Paths.get(absoluteImagePath);
     }
@@ -109,8 +109,19 @@ public class ImageController {
                 return image;
             }
         }
-        
+
         return null;
+    }
+    @GetMapping("{image_id}/info")
+    public ResponseEntity<?> getImageInfo(@PathVariable long image_id) {
+        User user = getAthenticatedUser();
+
+        Image image = getImage(image_id, user);
+
+        if(Objects.isNull(image))
+            return imageNotFound();
+
+        return ResponseEntity.ok().body(image);
     }
 
     @DeleteMapping("{image_id}")
