@@ -1,17 +1,19 @@
 .imageList {
     margin-top: 50px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
-img {
-    max-width: 100%;
+.imageListGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
 }
 
-.image {
+.imageListFlex {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 25%;
+    flex-direction: row;
+    width: 60%;
+}
+
+.imageListFlex > .image {
+    width: 33.33%;
 }

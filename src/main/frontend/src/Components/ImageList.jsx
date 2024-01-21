@@ -1,30 +1,48 @@
 import React from "react";
 import "../css/imageList.css";
-import ImageService from "../Service/ImageService";
-import {API_URL} from "../Constants/APIConst";
+import ImageItem from "./ImageItem";
+import {useEffect, useState} from "react";
 
 const ImageList = ({images_id, setImages}) => {
-    const staticUrl = API_URL;
+    const [childCount, setChildCount] = useState(0);
 
-    async function deleteImage(event) {
-        event.preventDefault();
+    useEffect(() => {
+        const parent = document.getElementsByClassName("imageList")[0];
+    
+        console.log(parent)
+        function updateChildCount() {
+            setChildCount(parent.children.length);
+        }
 
-        const [image_id] = event.target.classList;
+        const observer = new MutationObserver(updateChildCount);
+      
+        const config = { childList: true };
 
-        await ImageService.deleteImage(image_id);
+        observer.observe(parent, config);
+          
+        updateChildCount();
+      
+        return () => {
+            observer.disconnect();
+        };
+    }, []);
 
-        const response = await ImageService.getImages();
-        const images = response.data;
-        setImages(images);
-
-        return undefined;
+    if(childCount > 3) {
+        const imageListElement = document.getElementsByClassName("imageList")[0];
+        imageListElement.classList.add("imageListGrid")
+        imageListElement.classList.remove("imageListFlex")
+    } else {
+        const imageListElement = document.getElementsByClassName("imageList")[0];
+        imageListElement?.classList.remove("imageListGrid")
+        imageListElement?.classList.add("imageListFlex")
     }
 
-    const listItems = images_id.map((image) => {
-        return <div key={image} className="image">
-            <img src={staticUrl + "/image/" + image}></img>
-            <button className={image} onClick={(event => deleteImage(event))}>Удалить</button>
-        </div>
+    const listItems = images_id.map((image_id) => {
+            return <ImageItem image_id = {image_id}
+                       setImages = {setImages}
+                       key = {image_id}
+                       >
+            </ImageItem>
         }
     );
 
