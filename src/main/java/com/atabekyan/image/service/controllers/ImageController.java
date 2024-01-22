@@ -3,6 +3,7 @@ package com.atabekyan.image.service.controllers;
 import com.atabekyan.image.service.exception.StorageException;
 import com.atabekyan.image.service.model.Image;
 import com.atabekyan.image.service.model.User;
+import com.atabekyan.image.service.services.ImageService;
 import com.atabekyan.image.service.services.StorageService;
 import com.atabekyan.image.service.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,16 +32,17 @@ import java.util.Objects;
 public class ImageController {
     private final UserService userService;
     private final StorageService storageService;
-
+    private final ImageService imageService;
 
 
     @Autowired
-    public ImageController(StorageService storageService, UserService userService) {
+    public ImageController(StorageService storageService,
+                           UserService userService,
+                           ImageService imageService) {
         this.storageService = storageService;
         this.userService = userService;
+        this.imageService = imageService;
     }
-
-
 
     @GetMapping("{image_id}")
     public ResponseEntity<?> getImage(@PathVariable long image_id) {
@@ -156,6 +158,15 @@ public class ImageController {
         }
 
         return fileUploaded();
+    }
+
+    @PostMapping("{image_id}/updateTitle")
+    public ResponseEntity<?> updateTitle(@PathVariable long image_id,
+                                         @RequestParam String title) {
+        System.out.println("title from update title " + title);
+        imageService.updateImageTitle(image_id, title);
+
+        return ResponseEntity.ok().build();
     }
 
     private static ResponseEntity<String> fileUploaded() {

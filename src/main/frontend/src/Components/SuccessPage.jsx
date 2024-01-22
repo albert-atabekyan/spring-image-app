@@ -4,6 +4,8 @@ import ImageService from "../Service/ImageService";
 import UploadFile from "./UploadFile";
 import ImageList from "./ImageList";
 import LogoutButton from "./LogoutButton";
+import PopUp from "./PopUp";
+import FormInput from "./FormInput";
 
 const SuccessPage = () => {
     const [images, setImages] = useState([]);

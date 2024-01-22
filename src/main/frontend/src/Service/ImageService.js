@@ -47,6 +47,16 @@ class ImageService {
         })
     }
 
+    updateImageTitle(image_id, formData) {
+        const auth = AuthenticationService.getAuth();
+        return axios.post(API_URL + "/image/" + image_id + "/updateTitle", formData, {
+            auth: {
+                username: auth.user,
+                password: auth.pass
+            }
+        })
+    }
+
     deleteImage(image_id) {
         const auth = AuthenticationService.getAuth();
         return axios.delete(API_URL + "/image/" + image_id, { 

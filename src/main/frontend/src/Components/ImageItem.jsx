@@ -20,6 +20,25 @@ const ImageItem = ({image_id, setImages}) => {
         setImages(images);
     }
 
+    async function updateImageTitle(event) {
+        event.preventDefault();
+
+        const title = event.target.title.value;
+
+        const formData = new FormData();
+
+        formData.append("title", title);
+        await ImageService.updateImageTitle(image_id, formData);
+
+        const image_container = document.getElementById(image_id + "_div").childNodes
+        for (let element of image_container) {
+            if(element.classList[0] === "imageItemTitle") { 
+                const response = await ImageService.getImageInfo(image_id);
+                element.textContent = response.data.title;
+            } 
+        }
+    }
+
     useEffect(() => {
         ImageService.getImage(image_id).then(response => {
             const blob = response.data;
@@ -73,6 +92,7 @@ const ImageItem = ({image_id, setImages}) => {
                     inputs={input}
                     values={"title"}
                     buttonTitle="Редактировать заголовок"
+                    onSubmit={updateImageTitle}
                     >
                 </Form>
                 </PopUp>
