@@ -3,8 +3,8 @@
     max-width: 600px;
     height: 50vh;
     outline-offset: -10px;
-    background-color: #c8dadf;
-    outline: 2px dashed #92b0b3;
+    background-color: #124559;
+    outline: 2px dashed #EFF6E0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -21,22 +21,22 @@
     padding: 0 30px;
     display: inline-block;
     text-overflow: ellipsis;
-    color: #0f3c4b;
+    color: #EFF6E0;
     white-space: nowrap;
     font-family: Roboto, sans-serif;
     overflow: hidden;
 }
 
 .drop-area.is-drag-over {
-    outline: 2px dashed #92b0b3;
+    outline: 2px dashed #EFF6E0;
     outline-offset: -20px;
-    background-color: white;
+    background-color: #AEC3B0;
 }
 
 svg {
     width: 100%;
     height: 80px;
-    fill: #92b0b3;
+    fill: #598392;
     display: block;
     margin-bottom: 40px;
 }

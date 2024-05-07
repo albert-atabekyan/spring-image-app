@@ -8,12 +8,18 @@ input{
     padding: 15px;
     margin: 10px 0;
     border-radius: 5px;
-    border: 1px solid gray;
+    border: 1px solid #01161E;
+    background-color: #EFF6E0;
+    color: #01161E;
+}
+
+input::placeholder{
+    color: #598392;
 }
 
 label{
     font-size: 12px;
-    color: gray;
+    color: #EFF6E0;
 }
 
 span{

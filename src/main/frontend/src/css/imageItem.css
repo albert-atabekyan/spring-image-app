@@ -8,7 +8,8 @@ img {
     justify-content: space-between;
     align-items: center;
     margin: 10px;
-    background-color: white;
+    background-color: #AEC3B0;
+    color: #01161E;
     padding: 15px;
     border-radius: 5px;
 }
@@ -22,11 +23,17 @@ img {
 .buttonsContainer {
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
 }
 
 .buttonsContainer > * {
-    width: 40%;
+    width: 100%;
     height: 50px;
     font-size: 11px;
+    margin: 0;
+}
+
+.buttonsContainer > div {
+    all:unset;
 }
